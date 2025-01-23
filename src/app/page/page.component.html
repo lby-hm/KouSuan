@@ -1,0 +1,19 @@
+<div class="page">
+    <div class="title">
+        <div class="title-item"></div>
+        <div class="title-item">日期_______________</div>
+        <div class="title-item">用时_______________</div>
+        <div class="title-item"></div>
+    </div>
+    <div class="content">
+        @for(item of [].constructor(25); track $index){
+            <div class="row">
+                @for(item of [].constructor(4); track $index){
+                    <div class="item">
+                        1+1=2
+                    </div>
+                }
+            </div>
+        }
+    </div>
+</div>
