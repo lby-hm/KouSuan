@@ -23,18 +23,11 @@ export class PageComponent {
   // 不退位减法
   private problemList3: Problem[] = [];
 
-  private randomProblemList: Problem[] = [];
+  protected randomProblemList: string[] = [];
 
   constructor() {
     this.generateAllProblems();
     this.pickRandomProblems();
-  }
-
-  protected getRandomProblem(){
-    let randomIndex = this.getRandomInt(0, this.randomProblemList.length - 1);
-    let randomProblem = this.randomProblemList[randomIndex];
-    this.randomProblemList.splice(randomIndex, 1);
-    return this.formatProblem(randomProblem);
   }
 
   private generateAllProblems() {
@@ -90,19 +83,22 @@ export class PageComponent {
   }
 
   private pickRandomProblems() {
-    for(let i = 0; i < 30; i++) {
+    for(let i = 0; i < 10; i++) {
       let randomProblem = this.pickRandomProblem1();
-      this.randomProblemList.push(randomProblem);
+      let formatedProblem = this.formatProblem(randomProblem);
+      this.randomProblemList.push(formatedProblem);
+    }
+
+    for(let i = 0; i < 20; i++) {
+      let randomProblem = this.pickRandomProblem2();
+      let formatedProblem = this.formatProblem(randomProblem);
+      this.randomProblemList.push(formatedProblem);
     }
 
     for(let i = 0; i < 30; i++) {
-      let randomProblem = this.pickRandomProblem2();
-      this.randomProblemList.push(randomProblem);
-    }
-
-    for(let i = 0; i < 40; i++) {
       let randomProblem = this.pickRandomProblem3();
-      this.randomProblemList.push(randomProblem);
+      let formatedProblem = this.formatProblem(randomProblem);
+      this.randomProblemList.push(formatedProblem);
     }
   }
 
