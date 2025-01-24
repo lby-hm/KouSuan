@@ -1,17 +1,17 @@
 .page {
     width: 210mm;
-    height: 297mm;
-    margin: 20px auto;
-    padding: 20mm;
-
-    font-size: 20px;
+    height: 310mm;
+    margin: 0px auto;
+    padding: 15mm 15mm;
 
     display: flex;
     flex-direction: column;
 
     .title {
         display: flex;
-        height: 50px;
+        height: 40px;
+        padding: 20px;
+        font-size: 20px;
 
         .title-item {
             flex-grow: 1;
@@ -23,6 +23,7 @@
         display: flex;
         flex-direction: column;
         flex-grow: 1;
+        font-size: 20px;
 
         .row {
             flex-grow: 1;
