@@ -32,13 +32,22 @@ export class PageComponent {
 
   private generateAllProblems() {
     for (let i = 1; i <= 9; i++) {
+      this.problemList1.push({
+        Num1: i,
+        Num2: i,
+        operator: '+',
+        result: i + i
+      });
+
       for (let j = 1; j <= 10 - i; j++) {
-        this.problemList1.push({
-          Num1: i,
-          Num2: j,
-          operator: '+',
-          result: i + j
-        });
+        if (i !== j) {
+          this.problemList1.push({
+            Num1: i,
+            Num2: j,
+            operator: '+',
+            result: i + j
+          });
+        }
 
         this.problemList1.push({
           Num1: i + 10,
@@ -83,19 +92,19 @@ export class PageComponent {
   }
 
   private pickRandomProblems() {
-    for(let i = 0; i < 10; i++) {
+    for (let i = 0; i < 10; i++) {
       let randomProblem = this.pickRandomProblem1();
       let formatedProblem = this.formatProblem(randomProblem);
       this.randomProblemList.push(formatedProblem);
     }
 
-    for(let i = 0; i < 20; i++) {
+    for (let i = 0; i < 20; i++) {
       let randomProblem = this.pickRandomProblem2();
       let formatedProblem = this.formatProblem(randomProblem);
       this.randomProblemList.push(formatedProblem);
     }
 
-    for(let i = 0; i < 30; i++) {
+    for (let i = 0; i < 30; i++) {
       let randomProblem = this.pickRandomProblem3();
       let formatedProblem = this.formatProblem(randomProblem);
       this.randomProblemList.push(formatedProblem);
