@@ -92,44 +92,24 @@ export class PageComponent {
   }
 
   private pickRandomProblems() {
-    for (let i = 0; i < 10; i++) {
-      let randomProblem = this.pickRandomProblem1();
-      let formatedProblem = this.formatProblem(randomProblem);
-      this.randomProblemList.push(formatedProblem);
-    }
+    let randomProblemList1 = this.pickRandomProblemFromList(this.problemList1, 10);
+    let randomProblemList2 = this.pickRandomProblemFromList(this.problemList2, 30);
+    let randomProblemList3 = this.pickRandomProblemFromList(this.problemList3, 20);
+    let randomProblemList = randomProblemList1.concat(randomProblemList2).concat(randomProblemList3);
 
-    for (let i = 0; i < 20; i++) {
-      let randomProblem = this.pickRandomProblem2();
-      let formatedProblem = this.formatProblem(randomProblem);
-      this.randomProblemList.push(formatedProblem);
-    }
-
-    for (let i = 0; i < 30; i++) {
-      let randomProblem = this.pickRandomProblem3();
-      let formatedProblem = this.formatProblem(randomProblem);
-      this.randomProblemList.push(formatedProblem);
-    }
+    this.randomProblemList = this.pickRandomProblemFromList(randomProblemList, 60).map(problem => this.formatProblem(problem));
   }
 
-  private pickRandomProblem1() {
-    let randomIndex = this.getRandomInt(0, this.problemList1.length - 1);
-    let randomProblem = this.problemList1[randomIndex];
-    this.problemList1.splice(randomIndex, 1);
-    return randomProblem;
-  }
+  private pickRandomProblemFromList(problemList: Problem[], count: number) {
+    let randomProblemList: Problem[] = [];
+    for (let i = 0; i < count; i++) {
+      let randomIndex = this.getRandomInt(0, problemList.length - 1);
+      let randomProblem = problemList[randomIndex];
+      randomProblemList.push(randomProblem);
+      problemList.splice(randomIndex, 1);
+    }
 
-  private pickRandomProblem2() {
-    let randomIndex = this.getRandomInt(0, this.problemList2.length - 1);
-    let randomProblem = this.problemList2[randomIndex];
-    this.problemList2.splice(randomIndex, 1);
-    return randomProblem;
-  }
-
-  private pickRandomProblem3() {
-    let randomIndex = this.getRandomInt(0, this.problemList3.length - 1);
-    let randomProblem = this.problemList3[randomIndex];
-    this.problemList3.splice(randomIndex, 1);
-    return randomProblem;
+    return randomProblemList;
   }
 
   private getRandomInt(min: number, max: number) {
