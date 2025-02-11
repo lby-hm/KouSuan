@@ -105,6 +105,18 @@ export class PageComponent {
     for (let i = 0; i < count; i++) {
       let randomIndex = this.getRandomInt(0, problemList.length - 1);
       let randomProblem = problemList[randomIndex];
+      if (randomProblemList.find(problem =>
+        problem.Num1 === randomProblem.Num1 &&
+        problem.Num2 === randomProblem.Num2 &&
+        problem.operator === randomProblem.operator &&
+        problem.result === randomProblem.result)) {
+        console.log('duplicate problem', randomProblem, this);
+
+        // remove and pick again
+        // problemList.splice(randomIndex, 1);
+        // randomIndex = this.getRandomInt(0, problemList.length - 1);
+        // randomProblem = problemList[randomIndex];
+      }
       randomProblemList.push(randomProblem);
       problemList.splice(randomIndex, 1);
     }
