@@ -5,6 +5,17 @@ class Problem {
   Num2: number = 0;
   operator: string = '+';
   result: number = 0;
+
+  constructor(Num1: number, Num2: number, operator: string, result: number) {
+    this.Num1 = Num1;
+    this.Num2 = Num2;
+    this.operator = operator;
+    this.result = result;
+  }
+
+  equals(other: Problem): boolean {
+    return this.Num1 === other.Num1 && this.Num2 === other.Num2 && this.operator === other.operator && this.result === other.result;
+  }
 }
 
 @Component({
@@ -31,62 +42,40 @@ export class PageComponent {
   }
 
   private generateAllProblems() {
-    for (let i = 1; i <= 9; i++) {
-      this.problemList1.push({
-        Num1: i,
-        Num2: i,
-        operator: '+',
-        result: i + i
-      });
+    // 不进位加法
+    for (let i = 2; i <= 5; i++) {
+      this.problemList1.push(new Problem(i, i, '+', i + i));
+    }
 
-      for (let j = 1; j <= 10 - i; j++) {
+    for (let i = 2; i <= 10; i++) {
+      for (let j = 2; j <= 10 - i; j++) {
         if (i !== j) {
-          this.problemList1.push({
-            Num1: i,
-            Num2: j,
-            operator: '+',
-            result: i + j
-          });
+          this.problemList1.push(new Problem(i, j, '+', i + j));
         }
 
-        this.problemList1.push({
-          Num1: i + 10,
-          Num2: j,
-          operator: '+',
-          result: i + j + 10
-        });
-
-        this.problemList1.push({
-          Num1: i,
-          Num2: j + 10,
-          operator: '+',
-          result: i + j + 10
-        });
+        this.problemList1.push(new Problem(i + 10, j, '+', i + j + 10));
+        this.problemList1.push(new Problem(j, i + 10, '+', i + j + 10));
       }
+    }
 
+    // 进位加法
+    for (let i = 6; i <= 9; i++) {
+      this.problemList1.push(new Problem(i, i, '+', i + i));
+    }
+
+    for (let i = 2; i <= 9; i++) {
       for (let j = 11 - i; j <= 9; j++) {
-        this.problemList2.push({
-          Num1: i,
-          Num2: j,
-          operator: '+',
-          result: i + j
-        });
+        if (i !== j) {
+          this.problemList2.push(new Problem(i, j, '+', i + j));
+        }
       }
+    }
 
-      for (let j = 1; j <= i - 1; j++) {
-        this.problemList3.push({
-          Num1: i,
-          Num2: j,
-          operator: '-',
-          result: i - j
-        });
-
-        this.problemList3.push({
-          Num1: i + 10,
-          Num2: j,
-          operator: '-',
-          result: i - j
-        });
+    // 不退位减法
+    for (let i = 4; i <= 10; i++) {
+      for (let j = 2; j <= i - 2; j++) {
+        this.problemList3.push(new Problem(i, j, '-', i - j));
+        this.problemList3.push(new Problem(i + 10, j, '-', i - j));
       }
     }
   }
@@ -105,17 +94,8 @@ export class PageComponent {
     for (let i = 0; i < count; i++) {
       let randomIndex = this.getRandomInt(0, problemList.length - 1);
       let randomProblem = problemList[randomIndex];
-      if (randomProblemList.find(problem =>
-        problem.Num1 === randomProblem.Num1 &&
-        problem.Num2 === randomProblem.Num2 &&
-        problem.operator === randomProblem.operator &&
-        problem.result === randomProblem.result)) {
+      if (randomProblemList.find(problem => problem.equals(randomProblem))) {
         console.log('duplicate problem', randomProblem, this);
-
-        // remove and pick again
-        // problemList.splice(randomIndex, 1);
-        // randomIndex = this.getRandomInt(0, problemList.length - 1);
-        // randomProblem = problemList[randomIndex];
       }
       randomProblemList.push(randomProblem);
       problemList.splice(randomIndex, 1);
@@ -129,7 +109,9 @@ export class PageComponent {
   }
 
   private formatProblem(problem: Problem) {
-    var random = this.getRandomInt(1, 3);
+    //var random = this.getRandomInt(1, 3);
+    // 降低难度
+    var random = 3;
     if (random === 1) {
       return `(   ) ${problem.operator} ${problem.Num2} = ${problem.result}`;
     } else if (random === 2) {
