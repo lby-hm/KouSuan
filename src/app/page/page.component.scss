@@ -24,6 +24,7 @@
         flex-direction: column;
         flex-grow: 1;
         font-size: 20px;
+        font: Monospace;
 
         .row {
             flex-grow: 1;
@@ -32,6 +33,7 @@
 
             .item {
                 flex-grow: 1;
+                flex-basis: 0;
             }
         }
     }
