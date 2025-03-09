@@ -45,56 +45,29 @@ export class PageComponent {
   }
 
   private generateAllProblems() {
-    // 不进位加法 16题
-    this.problemList1.push(new Problem(2, 2, '+', 2 + 2));
-    this.problemList1.push(new Problem(2, 3, '+', 2 + 3));
-    this.problemList1.push(new Problem(2, 4, '+', 2 + 4));
-    this.problemList1.push(new Problem(2, 5, '+', 2 + 5));
-    this.problemList1.push(new Problem(2, 6, '+', 2 + 6));
-    this.problemList1.push(new Problem(2, 7, '+', 2 + 7));
-    this.problemList1.push(new Problem(2, 8, '+', 2 + 8));
-    this.problemList1.push(new Problem(3, 3, '+', 3 + 3));
-    this.problemList1.push(new Problem(3, 4, '+', 3 + 4));
-    this.problemList1.push(new Problem(3, 5, '+', 3 + 5));
-    this.problemList1.push(new Problem(3, 6, '+', 3 + 6));
-    this.problemList1.push(new Problem(3, 7, '+', 3 + 7));
-    this.problemList1.push(new Problem(4, 4, '+', 4 + 4));
-    this.problemList1.push(new Problem(4, 5, '+', 4 + 5));
-    this.problemList1.push(new Problem(4, 6, '+', 4 + 6));
-    this.problemList1.push(new Problem(5, 5, '+', 5 + 5));
-
-    // 进位加法 20题
-    this.problemList2.push(new Problem(2, 9, '+', 2 + 9));
-    this.problemList2.push(new Problem(3, 8, '+', 3 + 8));
-    this.problemList2.push(new Problem(3, 9, '+', 3 + 9));
-    this.problemList2.push(new Problem(4, 7, '+', 4 + 7));
-    this.problemList2.push(new Problem(4, 8, '+', 4 + 8));
-    this.problemList2.push(new Problem(4, 9, '+', 4 + 9));
-    this.problemList2.push(new Problem(5, 6, '+', 5 + 6));
-    this.problemList2.push(new Problem(5, 7, '+', 5 + 7));
-    this.problemList2.push(new Problem(5, 8, '+', 5 + 8));
-    this.problemList2.push(new Problem(5, 9, '+', 5 + 9));
-    this.problemList2.push(new Problem(6, 6, '+', 6 + 6));
-    this.problemList2.push(new Problem(6, 7, '+', 6 + 7));
-    this.problemList2.push(new Problem(6, 8, '+', 6 + 8));
-    this.problemList2.push(new Problem(6, 9, '+', 6 + 9));
-    this.problemList2.push(new Problem(7, 7, '+', 7 + 7));
-    this.problemList2.push(new Problem(7, 8, '+', 7 + 8));
-    this.problemList2.push(new Problem(7, 9, '+', 7 + 9));
-    this.problemList2.push(new Problem(8, 8, '+', 8 + 8));
-    this.problemList2.push(new Problem(8, 9, '+', 8 + 9));
-    this.problemList2.push(new Problem(9, 9, '+', 9 + 9));
-
-    // 不退位减法 56题
-    for (let i = 4; i <= 10; i++) {
-      for (let j = 2; j <= i - 2; j++) {
-        this.problemList3.push(new Problem(i, j, '-', i - j));
-        this.problemList3.push(new Problem(i + 10, j, '-', i - j));
+    // 不进位加法
+    for (let i = 2; i <= 5; i++) {
+      for (let j = i; j <= 10 - i; j++) {
+        this.problemList1.push(new Problem(i, j, '+', i + j));
       }
     }
 
-    // 退位减法 28题
-    for (let i = 12; i <= 19; i++) {
+    // 进位加法
+    for (let i = 2; i <= 9; i++) {
+      for (let j = 9; j >= 11 - i && j > i; j--) {
+        this.problemList2.push(new Problem(i, j, '+', i + j));
+      }
+    }
+
+    // 不退位减法
+    for (let i = 4; i <= 10; i++) {
+      for (let j = 2; j <= i - 2; j++) {
+        this.problemList3.push(new Problem(i, j, '-', i - j));
+      }
+    }
+
+    // 退位减法
+    for (let i = 12; i <= 18; i++) {
       for (let j = i - 9; j <= 9; j++) {
         this.problemList4.push(new Problem(i, j, '-', i - j));
       }
@@ -102,23 +75,110 @@ export class PageComponent {
   }
 
   private pickRandomProblems() {
-    let randomProblemList1 = this.pickRandomProblemFromList(this.problemList1, 10);
-    let randomProblemList2 = this.pickRandomProblemFromList(this.problemList2, 15);
-    let randomProblemList3 = this.pickRandomProblemFromList(this.problemList3, 15);
-    let randomProblemList4 = this.pickRandomProblemFromList(this.problemList4, 10);
+    let randomProblemList1 = this.pickRandomProblemFromList1(5);
+    let randomProblemList2 = this.pickRandomProblemFromList2(15);
+    let randomProblemList3 = this.pickRandomProblemFromList3(5);
+    let randomProblemList4 = this.pickRandomProblemFromList4(15);
     let randomProblemList = randomProblemList1.concat(randomProblemList2).concat(randomProblemList3).concat(randomProblemList4);
 
-    this.randomProblemList = this.pickRandomProblemFromList(randomProblemList, 50).map(problem => this.formatProblem(problem));
+    this.randomProblemList = this.pickRandomProblemFromList(randomProblemList, 50);
   }
 
-  private pickRandomProblemFromList(problemList: Problem[], count: number) {
-    let randomProblemList: Problem[] = [];
+  private pickRandomProblemFromList1(count: number): string[] {
+    let randomProblemList: string[] = [];
+    for (let i = 0; i < count; i++) {
+      let randomIndex = this.getRandomInt(0, this.problemList1.length - 1);
+
+      let num1 = this.problemList1[randomIndex].Num1;
+      let num2 = this.problemList1[randomIndex].Num2;
+
+      if (this.getRandomInt(0, 1) === 0) {
+        let num = num1;
+        num1 = num2;
+        num2 = num;
+      }
+
+      switch (this.getRandomInt(0, 2)) {
+        case 0: break;
+        case 1:
+          num1 += 10;
+          break;
+        case 2:
+          num2 += 10;
+          break;
+      }
+
+      let formattedProblem = this.formatProblem(new Problem(num1, num2, '+', num1 + num2));
+      randomProblemList.push(formattedProblem);
+      this.problemList1.splice(randomIndex, 1);
+    }
+
+    return randomProblemList;
+  }
+
+  private pickRandomProblemFromList2(count: number): string[] {
+    let randomProblemList: string[] = [];
+    for (let i = 0; i < count; i++) {
+      let randomIndex = this.getRandomInt(0, this.problemList2.length - 1);
+
+      let num1 = this.problemList2[randomIndex].Num1;
+      let num2 = this.problemList2[randomIndex].Num2;
+
+      if (this.getRandomInt(0, 1) === 0) {
+        let num = num1;
+        num1 = num2;
+        num2 = num;
+      }
+
+      let formattedProblem = this.formatProblem(new Problem(num1, num2, '+', num1 + num2));
+      randomProblemList.push(formattedProblem);
+      this.problemList2.splice(randomIndex, 1);
+    }
+
+    return randomProblemList;
+  }
+
+  private pickRandomProblemFromList3(count: number): string[] {
+    let randomProblemList: string[] = [];
+    for (let i = 0; i < count; i++) {
+      let randomIndex = this.getRandomInt(0, this.problemList3.length - 1);
+
+      let num1 = this.problemList3[randomIndex].Num1;
+      let num2 = this.problemList3[randomIndex].Num2;
+
+      if (this.getRandomInt(0, 1) === 0) {
+        num1 += 10;
+      }
+
+      let formattedProblem = this.formatProblem(new Problem(num1, num2, '-', num1 - num2));
+      randomProblemList.push(formattedProblem);
+      this.problemList3.splice(randomIndex, 1);
+    }
+
+    return randomProblemList;
+  }
+
+  private pickRandomProblemFromList4(count: number): string[] {
+    let randomProblemList: string[] = [];
+    for (let i = 0; i < count; i++) {
+      let randomIndex = this.getRandomInt(0, this.problemList4.length - 1);
+
+      let num1 = this.problemList4[randomIndex].Num1;
+      let num2 = this.problemList4[randomIndex].Num2;
+
+      let formattedProblem = this.formatProblem(new Problem(num1, num2, '-', num1 - num2));
+      randomProblemList.push(formattedProblem);
+      this.problemList4.splice(randomIndex, 1);
+    }
+
+    return randomProblemList;
+  }
+
+  private pickRandomProblemFromList(problemList: string[], count: number) {
+    let randomProblemList: string[] = [];
     for (let i = 0; i < count; i++) {
       let randomIndex = this.getRandomInt(0, problemList.length - 1);
       let randomProblem = problemList[randomIndex];
-      if (randomProblemList.find(problem => problem.equals(randomProblem))) {
-        console.log('duplicate problem', randomProblem, this);
-      }
       randomProblemList.push(randomProblem);
       problemList.splice(randomIndex, 1);
     }
