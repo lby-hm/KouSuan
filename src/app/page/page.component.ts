@@ -37,6 +37,8 @@ export class PageComponent {
   // 退位减法
   private problemList4: Problem[] = [];
 
+  protected rowCount: number = 13;
+  protected colCount: number = 4;
   protected randomProblemList: string[] = [];
 
   constructor() {
@@ -76,28 +78,31 @@ export class PageComponent {
 
   private pickRandomProblems() {
     let randomProblemList1 = this.pickRandomProblemFromList1(5);
-    let randomProblemList2 = this.pickRandomProblemFromList2(15);
+    let randomProblemList2 = this.pickRandomProblemFromList2(); // 16
     let randomProblemList3 = this.pickRandomProblemFromList3(5);
-    let randomProblemList4 = this.pickRandomProblemFromList4(15);
+    let randomProblemList4 = this.pickRandomProblemFromList4(); // 28
     let randomProblemList = randomProblemList1.concat(randomProblemList2).concat(randomProblemList3).concat(randomProblemList4);
 
-    this.randomProblemList = this.pickRandomProblemFromList(randomProblemList, 50);
+    this.randomProblemList = this.pickRandomProblemFromList(randomProblemList, this.rowCount * this.colCount);
   }
 
-  private pickRandomProblemFromList1(count: number): string[] {
+  private pickRandomProblemFromList1(count?: number): string[] {
     let randomProblemList: string[] = [];
+    if (!count || count > this.problemList1.length) { count = this.problemList1.length; }
     for (let i = 0; i < count; i++) {
       let randomIndex = this.getRandomInt(0, this.problemList1.length - 1);
 
       let num1 = this.problemList1[randomIndex].Num1;
       let num2 = this.problemList1[randomIndex].Num2;
 
+      // 随机交换加数顺序
       if (this.getRandomInt(0, 1) === 0) {
         let num = num1;
         num1 = num2;
         num2 = num;
       }
 
+      // 随机加数+10
       switch (this.getRandomInt(0, 2)) {
         case 0: break;
         case 1:
@@ -116,14 +121,16 @@ export class PageComponent {
     return randomProblemList;
   }
 
-  private pickRandomProblemFromList2(count: number): string[] {
+  private pickRandomProblemFromList2(count?: number): string[] {
     let randomProblemList: string[] = [];
+    if (!count || count > this.problemList2.length) { count = this.problemList2.length; }
     for (let i = 0; i < count; i++) {
       let randomIndex = this.getRandomInt(0, this.problemList2.length - 1);
 
       let num1 = this.problemList2[randomIndex].Num1;
       let num2 = this.problemList2[randomIndex].Num2;
 
+      // 随机交换加数顺序
       if (this.getRandomInt(0, 1) === 0) {
         let num = num1;
         num1 = num2;
@@ -138,14 +145,16 @@ export class PageComponent {
     return randomProblemList;
   }
 
-  private pickRandomProblemFromList3(count: number): string[] {
+  private pickRandomProblemFromList3(count?: number): string[] {
     let randomProblemList: string[] = [];
+    if (!count || count > this.problemList3.length) { count = this.problemList3.length; }
     for (let i = 0; i < count; i++) {
       let randomIndex = this.getRandomInt(0, this.problemList3.length - 1);
 
       let num1 = this.problemList3[randomIndex].Num1;
       let num2 = this.problemList3[randomIndex].Num2;
 
+      // 随机被减数+10
       if (this.getRandomInt(0, 1) === 0) {
         num1 += 10;
       }
@@ -158,8 +167,9 @@ export class PageComponent {
     return randomProblemList;
   }
 
-  private pickRandomProblemFromList4(count: number): string[] {
+  private pickRandomProblemFromList4(count?: number): string[] {
     let randomProblemList: string[] = [];
+    if (!count || count > this.problemList4.length) { count = this.problemList4.length; }
     for (let i = 0; i < count; i++) {
       let randomIndex = this.getRandomInt(0, this.problemList4.length - 1);
 
@@ -174,8 +184,9 @@ export class PageComponent {
     return randomProblemList;
   }
 
-  private pickRandomProblemFromList(problemList: string[], count: number) {
+  private pickRandomProblemFromList(problemList: string[], count?: number) {
     let randomProblemList: string[] = [];
+    if (!count || count > problemList.length) { count = problemList.length; }
     for (let i = 0; i < count; i++) {
       let randomIndex = this.getRandomInt(0, problemList.length - 1);
       let randomProblem = problemList[randomIndex];

@@ -6,9 +6,9 @@
         <div class="title-item"></div>
     </div>
     <div class="content">
-        @for(item of [].constructor(10); track $index; let i = $index){
+        @for(item of [].constructor(rowCount); track $index; let i = $index){
         <div class="row">
-            @for(item of [].constructor(4); track $index; let j = $index){
+            @for(item of [].constructor(colCount); track $index; let j = $index){
             <div class="item">
                 <pre class="problem">{{randomProblemList[i* 4 + j]}}</pre>
             </div>
