@@ -1,19 +1,19 @@
 <div class="page">
-    <div class="title">
-        <div class="title-item"></div>
-        <div class="title-item">日期_______________</div>
-        <div class="title-item">用时_______________</div>
-        <div class="title-item"></div>
+  <div class="title">
+    <div class="title-item"></div>
+    <div class="title-item">日期_______________</div>
+    <div class="title-item">用时_______________</div>
+    <div class="title-item"></div>
+  </div>
+  <div class="content">
+    @for(item of [].constructor(rowCount); track $index; let i = $index){
+    <div class="row">
+      @for(item of [].constructor(colCount); track $index; let j = $index){
+      <div class="item">
+        <pre class="problem">{{problemList[i* 4 + j]}}</pre>
+      </div>
+      }
     </div>
-    <div class="content">
-        @for(item of [].constructor(rowCount); track $index; let i = $index){
-        <div class="row">
-            @for(item of [].constructor(colCount); track $index; let j = $index){
-            <div class="item">
-                <pre class="problem">{{randomProblemList[i* 4 + j]}}</pre>
-            </div>
-            }
-        </div>
-        }
-    </div>
+    }
+  </div>
 </div>
