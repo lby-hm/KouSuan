@@ -7,7 +7,13 @@ import { Component, Input } from '@angular/core';
   styleUrl: './page.component.scss'
 })
 export class PageComponent {
-  protected rowCount: number = 13;
-  protected colCount: number = 4;
   @Input("problems") problemList: string[] = [];
+
+  protected getColumns() {
+    return [].constructor(4);
+  }
+  protected getRows() {
+    let colNum = this.problemList.length / 4;
+    return [].constructor(colNum);
+  }
 }
