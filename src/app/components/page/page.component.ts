@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-page',
@@ -8,12 +8,19 @@ import { Component, Input } from '@angular/core';
 })
 export class PageComponent {
   @Input("problems") problemList: string[] = [];
+  @Input("colCount") colCount: number = 4;
 
-  protected getColumns() {
-    return [].constructor(4);
+  protected colArray: number[] = [];
+  protected rowArray: number[] = [];
+
+  ngOnInit() {
+    this.colArray = [].constructor(this.colCount);
+    let rowCount = this.problemList.length / this.colCount;
+    this.rowArray = [].constructor(rowCount);
   }
-  protected getRows() {
-    let colNum = this.problemList.length / 4;
-    return [].constructor(colNum);
+
+  protected getProblem(rowIndex: number, colIndex: number): string {
+    let index = rowIndex * this.colCount + colIndex;
+    return this.problemList[index];
   }
 }

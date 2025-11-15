@@ -6,11 +6,11 @@
     <div class="title-item"></div>
   </div>
   <div class="content">
-    @for(item of getRows(); track $index; let i = $index){
+    @for(item of rowArray; track $index; let i = $index){
     <div class="row">
-      @for(item of getColumns(); track $index; let j = $index){
+      @for(item of colArray; track $index; let j = $index){
       <div class="item">
-        <pre class="problem">{{problemList[i* 4 + j]}}</pre>
+        <pre class="problem">{{getProblem(i, j)}}</pre>
       </div>
       }
     </div>
