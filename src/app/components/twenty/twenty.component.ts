@@ -6,10 +6,9 @@ import { Problem } from '../../models/problem.model';
   selector: 'app-twenty',
   imports: [PageComponent],
   templateUrl: './twenty.component.html',
-  styleUrl: './twenty.component.scss'
+  styleUrl: './twenty.component.scss',
 })
 export class TwentyComponent {
-
   protected getRandomProblemList(): string[] {
     // 不进位加法
     var problemList1: Problem[] = [];
@@ -43,19 +42,27 @@ export class TwentyComponent {
       }
     }
 
-    let randomProblemList1 = this.pickRandomProblemFromList1(problemList1, 5);
+    let randomProblemList1 = this.pickRandomProblemFromList1(problemList1, 1);
     let randomProblemList2 = this.pickRandomProblemFromList2(problemList2, 16);
-    let randomProblemList3 = this.pickRandomProblemFromList3(problemList3, 5);
-    let randomProblemList4 = this.pickRandomProblemFromList4(problemList4, 28);
-    let randomProblemList = randomProblemList1.concat(randomProblemList2).concat(randomProblemList3).concat(randomProblemList4);
+    let randomProblemList3 = this.pickRandomProblemFromList3(problemList3, 1);
+    let randomProblemList4 = this.pickRandomProblemFromList4(problemList4, 18);
+    let randomProblemList = randomProblemList1
+      .concat(randomProblemList2)
+      .concat(randomProblemList3)
+      .concat(randomProblemList4);
 
-    var problemList = this.pickRandomProblemFromList(randomProblemList, 52);
+    var problemList = this.pickRandomProblemFromList(randomProblemList, 36);
     return problemList;
   }
 
-  private pickRandomProblemFromList1(problemList: Problem[], count?: number): string[] {
+  private pickRandomProblemFromList1(
+    problemList: Problem[],
+    count?: number
+  ): string[] {
     let randomProblemList: string[] = [];
-    if (!count || count > problemList.length) { count = problemList.length; }
+    if (!count || count > problemList.length) {
+      count = problemList.length;
+    }
     for (let i = 0; i < count; i++) {
       let randomIndex = this.getRandomInt(0, problemList.length - 1);
 
@@ -71,7 +78,8 @@ export class TwentyComponent {
 
       // 随机加数+10
       switch (this.getRandomInt(0, 2)) {
-        case 0: break;
+        case 0:
+          break;
         case 1:
           num1 += 10;
           break;
@@ -80,7 +88,9 @@ export class TwentyComponent {
           break;
       }
 
-      let formattedProblem = this.formatProblem(new Problem(num1, num2, '+', num1 + num2));
+      let formattedProblem = this.formatProblem(
+        new Problem(num1, num2, '+', num1 + num2)
+      );
       randomProblemList.push(formattedProblem);
       problemList.splice(randomIndex, 1);
     }
@@ -88,9 +98,14 @@ export class TwentyComponent {
     return randomProblemList;
   }
 
-  private pickRandomProblemFromList2(problemList: Problem[], count?: number): string[] {
+  private pickRandomProblemFromList2(
+    problemList: Problem[],
+    count?: number
+  ): string[] {
     let randomProblemList: string[] = [];
-    if (!count || count > problemList.length) { count = problemList.length; }
+    if (!count || count > problemList.length) {
+      count = problemList.length;
+    }
     for (let i = 0; i < count; i++) {
       let randomIndex = this.getRandomInt(0, problemList.length - 1);
 
@@ -104,7 +119,9 @@ export class TwentyComponent {
         num2 = num;
       }
 
-      let formattedProblem = this.formatProblem(new Problem(num1, num2, '+', num1 + num2));
+      let formattedProblem = this.formatProblem(
+        new Problem(num1, num2, '+', num1 + num2)
+      );
       randomProblemList.push(formattedProblem);
       problemList.splice(randomIndex, 1);
     }
@@ -112,9 +129,14 @@ export class TwentyComponent {
     return randomProblemList;
   }
 
-  private pickRandomProblemFromList3(problemList: Problem[], count?: number): string[] {
+  private pickRandomProblemFromList3(
+    problemList: Problem[],
+    count?: number
+  ): string[] {
     let randomProblemList: string[] = [];
-    if (!count || count > problemList.length) { count = problemList.length; }
+    if (!count || count > problemList.length) {
+      count = problemList.length;
+    }
     for (let i = 0; i < count; i++) {
       let randomIndex = this.getRandomInt(0, problemList.length - 1);
 
@@ -126,7 +148,9 @@ export class TwentyComponent {
         num1 += 10;
       }
 
-      let formattedProblem = this.formatProblem(new Problem(num1, num2, '-', num1 - num2));
+      let formattedProblem = this.formatProblem(
+        new Problem(num1, num2, '-', num1 - num2)
+      );
       randomProblemList.push(formattedProblem);
       problemList.splice(randomIndex, 1);
     }
@@ -134,16 +158,23 @@ export class TwentyComponent {
     return randomProblemList;
   }
 
-  private pickRandomProblemFromList4(problemList: Problem[], count?: number): string[] {
+  private pickRandomProblemFromList4(
+    problemList: Problem[],
+    count?: number
+  ): string[] {
     let randomProblemList: string[] = [];
-    if (!count || count > problemList.length) { count = problemList.length; }
+    if (!count || count > problemList.length) {
+      count = problemList.length;
+    }
     for (let i = 0; i < count; i++) {
       let randomIndex = this.getRandomInt(0, problemList.length - 1);
 
       let num1 = problemList[randomIndex].Num1;
       let num2 = problemList[randomIndex].Num2;
 
-      let formattedProblem = this.formatProblem(new Problem(num1, num2, '-', num1 - num2));
+      let formattedProblem = this.formatProblem(
+        new Problem(num1, num2, '-', num1 - num2)
+      );
       randomProblemList.push(formattedProblem);
       problemList.splice(randomIndex, 1);
     }
@@ -153,7 +184,9 @@ export class TwentyComponent {
 
   private pickRandomProblemFromList(problemList: string[], count?: number) {
     let randomProblemList: string[] = [];
-    if (!count || count > problemList.length) { count = problemList.length; }
+    if (!count || count > problemList.length) {
+      count = problemList.length;
+    }
     for (let i = 0; i < count; i++) {
       let randomIndex = this.getRandomInt(0, problemList.length - 1);
       let randomProblem = problemList[randomIndex];

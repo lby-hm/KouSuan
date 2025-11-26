@@ -6,7 +6,7 @@ import { Problem } from '../../models/problem.model';
   selector: 'app-hundred',
   imports: [PageComponent],
   templateUrl: './hundred.component.html',
-  styleUrl: './hundred.component.scss'
+  styleUrl: './hundred.component.scss',
 })
 export class HundredComponent {
   protected randomProblemList: string[];
@@ -41,7 +41,7 @@ export class HundredComponent {
     // 减法
     for (let i = 2; i <= 100; i++) {
       for (let j = 1; j <= i - 1; j++) {
-        if ((i % 10) > (j % 10)) {
+        if (i % 10 > j % 10) {
           problemList3.push(new Problem(i, j, '-', i - j));
         } else {
           problemList4.push(new Problem(i, j, '-', i - j));
@@ -49,19 +49,27 @@ export class HundredComponent {
       }
     }
 
-    let randomProblemList1 = this.pickRandomProblemFromList1(problemList1, 10);
-    let randomProblemList2 = this.pickRandomProblemFromList2(problemList2, 30);
-    let randomProblemList3 = this.pickRandomProblemFromList3(problemList3, 10);
-    let randomProblemList4 = this.pickRandomProblemFromList4(problemList4, 10);
-    let randomProblemList = randomProblemList1.concat(randomProblemList2).concat(randomProblemList3).concat(randomProblemList4);
+    let randomProblemList1 = this.pickRandomProblemFromList1(problemList1, 1);
+    let randomProblemList2 = this.pickRandomProblemFromList2(problemList2, 17);
+    let randomProblemList3 = this.pickRandomProblemFromList3(problemList3, 1);
+    let randomProblemList4 = this.pickRandomProblemFromList4(problemList4, 17);
+    let randomProblemList = randomProblemList1
+      .concat(randomProblemList2)
+      .concat(randomProblemList3)
+      .concat(randomProblemList4);
 
-    var problemList = this.pickRandomProblemFromList(randomProblemList, 60);
+    var problemList = this.pickRandomProblemFromList(randomProblemList, 36);
     return problemList;
   }
 
-  private pickRandomProblemFromList1(problemList: Problem[], count?: number): string[] {
+  private pickRandomProblemFromList1(
+    problemList: Problem[],
+    count?: number
+  ): string[] {
     let randomProblemList: string[] = [];
-    if (!count || count > problemList.length) { count = problemList.length; }
+    if (!count || count > problemList.length) {
+      count = problemList.length;
+    }
     for (let i = 0; i < count; i++) {
       let randomIndex = this.getRandomInt(0, problemList.length - 1);
 
@@ -75,7 +83,9 @@ export class HundredComponent {
         num2 = num;
       }
 
-      let formattedProblem = this.formatProblem(new Problem(num1, num2, '+', num1 + num2));
+      let formattedProblem = this.formatProblem(
+        new Problem(num1, num2, '+', num1 + num2)
+      );
       randomProblemList.push(formattedProblem);
       problemList.splice(randomIndex, 1);
     }
@@ -83,9 +93,14 @@ export class HundredComponent {
     return randomProblemList;
   }
 
-  private pickRandomProblemFromList2(problemList: Problem[], count?: number): string[] {
+  private pickRandomProblemFromList2(
+    problemList: Problem[],
+    count?: number
+  ): string[] {
     let randomProblemList: string[] = [];
-    if (!count || count > problemList.length) { count = problemList.length; }
+    if (!count || count > problemList.length) {
+      count = problemList.length;
+    }
     for (let i = 0; i < count; i++) {
       let randomIndex = this.getRandomInt(0, problemList.length - 1);
 
@@ -99,7 +114,9 @@ export class HundredComponent {
         num2 = num;
       }
 
-      let formattedProblem = this.formatProblem(new Problem(num1, num2, '+', num1 + num2));
+      let formattedProblem = this.formatProblem(
+        new Problem(num1, num2, '+', num1 + num2)
+      );
       randomProblemList.push(formattedProblem);
       problemList.splice(randomIndex, 1);
     }
@@ -107,16 +124,23 @@ export class HundredComponent {
     return randomProblemList;
   }
 
-  private pickRandomProblemFromList3(problemList: Problem[], count?: number): string[] {
+  private pickRandomProblemFromList3(
+    problemList: Problem[],
+    count?: number
+  ): string[] {
     let randomProblemList: string[] = [];
-    if (!count || count > problemList.length) { count = problemList.length; }
+    if (!count || count > problemList.length) {
+      count = problemList.length;
+    }
     for (let i = 0; i < count; i++) {
       let randomIndex = this.getRandomInt(0, problemList.length - 1);
 
       let num1 = problemList[randomIndex].Num1;
       let num2 = problemList[randomIndex].Num2;
 
-      let formattedProblem = this.formatProblem(new Problem(num1, num2, '-', num1 - num2));
+      let formattedProblem = this.formatProblem(
+        new Problem(num1, num2, '-', num1 - num2)
+      );
       randomProblemList.push(formattedProblem);
       problemList.splice(randomIndex, 1);
     }
@@ -124,16 +148,23 @@ export class HundredComponent {
     return randomProblemList;
   }
 
-  private pickRandomProblemFromList4(problemList: Problem[], count?: number): string[] {
+  private pickRandomProblemFromList4(
+    problemList: Problem[],
+    count?: number
+  ): string[] {
     let randomProblemList: string[] = [];
-    if (!count || count > problemList.length) { count = problemList.length; }
+    if (!count || count > problemList.length) {
+      count = problemList.length;
+    }
     for (let i = 0; i < count; i++) {
       let randomIndex = this.getRandomInt(0, problemList.length - 1);
 
       let num1 = problemList[randomIndex].Num1;
       let num2 = problemList[randomIndex].Num2;
 
-      let formattedProblem = this.formatProblem(new Problem(num1, num2, '-', num1 - num2));
+      let formattedProblem = this.formatProblem(
+        new Problem(num1, num2, '-', num1 - num2)
+      );
       randomProblemList.push(formattedProblem);
       problemList.splice(randomIndex, 1);
     }
@@ -143,7 +174,9 @@ export class HundredComponent {
 
   private pickRandomProblemFromList(problemList: string[], count?: number) {
     let randomProblemList: string[] = [];
-    if (!count || count > problemList.length) { count = problemList.length; }
+    if (!count || count > problemList.length) {
+      count = problemList.length;
+    }
     for (let i = 0; i < count; i++) {
       let randomIndex = this.getRandomInt(0, problemList.length - 1);
       let randomProblem = problemList[randomIndex];
