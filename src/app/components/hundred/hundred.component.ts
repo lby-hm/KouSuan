@@ -9,12 +9,7 @@ import { Problem } from '../../models/problem.model';
   styleUrl: './hundred.component.scss',
 })
 export class HundredComponent {
-  protected randomProblemList: string[];
-  constructor() {
-    this.randomProblemList = this.getRandomProblemList();
-  }
-
-  private getRandomProblemList(): string[] {
+  protected getRandomProblemList(): string[] {
     // 不进位加法
     var problemList1: Problem[] = [];
 

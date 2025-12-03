@@ -9,12 +9,6 @@ import { Problem } from '../../models/problem.model';
   styleUrl: './twentyMinus.component.scss'
 })
 export class TwentyMinusComponent {
-  protected problemList: string[] = [];
-
-  constructor() {
-    this.problemList = this.getRandomProblemList();
-  }
-
   protected getRandomProblemList(): string[] {
 
     // 退位减法
